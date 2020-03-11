@@ -1,4 +1,9 @@
-document.addEventListener("DOMContentLoaded",fetchDogsImgs)
+document.addEventListener("DOMContentLoaded",loadPage)
+
+function loadPage() {
+    fetchDogsImgs();
+    fetchDogsBreeds();
+}
 
 function fetchDogsImgs() {
     fetch(getUrl())
@@ -29,5 +34,10 @@ function getBreed(dog) {
     let dogBreedList = document.getElementById('dog-breeds');
     let dogBreed = document.createElement('li')
     dogBreed.innerText = dog;
+    dogBreed.addEventListener("click",turnColor)
     dogBreedList.appendChild(dogBreed)
+}
+
+function turnColor(event) {
+    event.target.className = "clicked-dog"
 }
