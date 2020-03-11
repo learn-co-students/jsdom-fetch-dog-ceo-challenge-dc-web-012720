@@ -1,4 +1,8 @@
-document.addEventListener("DOMContentLoaded",loadPage)
+document.addEventListener("DOMContentLoaded",() => {
+    loadPage()
+    getForm().addEventListener("submit", processFormSubmit)
+})
+
 
 function loadPage() {
     fetchDogsImgs();
@@ -40,4 +44,20 @@ function getBreed(dog) {
 
 function turnColor(event) {
     event.target.className = "clicked-dog"
+}
+
+function getForm() {
+    return document.querySelector('form')
+}
+
+function processFormSubmit(event) {
+    event.preventDefault()
+
+    let letterChoice = event.srcElement[0].value 
+
+    let breedList = document.querySelector('#dog-breeds')
+
+    let filteredList = breedList.filter(name => name[0] === letterChoice )
+
+    
 }
