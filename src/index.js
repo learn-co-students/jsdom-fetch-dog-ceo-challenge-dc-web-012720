@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded",() => {
-    loadPage()
+    loadImages();
+    loadBreedOptions();
     getForm().addEventListener("submit", processFormSubmit)
 })
 
-
 function loadPage() {
-    fetchDogsImgs();
-    fetchDogsBreeds();
+    loadImages();
+    loadBreedOptions();
 }
 
-function fetchDogsImgs() {
+function loadImages() {
     fetch(getUrl())
         .then(response => response.json())
         .then(dogs => dogs.message.forEach(dog => addImg(dog)))
@@ -26,12 +26,29 @@ function addImg(dog) {
     dogContainer.appendChild(dogImage)
 }
 
-function fetchDogsBreeds() {
+function loadBreedOptions() {
     fetch('https://dog.ceo/api/breeds/list/all')
         .then(response => response.json())
         .then(dogs => Object.keys(dogs.message).forEach(dog => getBreed(dog)))
 
         // dogs.message.forEach(dog => getBreed(dog))
+}
+
+function loadBreedOptions() {
+    fetch('https://dog.ceo/api/breeds/list/all')
+        .then(response => response.json())
+        .then(dogs => Object.keys(dogs.message).filter(name => name[0] === letterChoice ).forEach(dog => if getFancyBreed(dog)))
+
+        // dogs.message.forEach(dog => getBreed(dog))
+}
+
+function getFancyBreed(dog) {
+
+    let dogBreedList = document.getElementById('dog-breeds');
+    let dogBreed = document.createElement('li')
+    dogBreed.innerText = dog;
+    dogBreed.addEventListener("click",turnColor)
+    dogBreedList.appendChild(dogBreed)
 }
 
 function getBreed(dog) {
